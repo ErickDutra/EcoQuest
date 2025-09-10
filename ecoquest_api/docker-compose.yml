@@ -1,0 +1,14 @@
+version: "3"
+services:
+  database:
+    image: "postgres:latest"
+    ports:
+      - 5433:5432
+
+    environment:
+      POSTGRES_USER: ecoquest 
+      POSTGRES_PASSWORD: senha 
+      POSTGRES_DB: ecoquest_database 
+
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
