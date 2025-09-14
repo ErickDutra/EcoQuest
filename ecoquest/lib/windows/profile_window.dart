@@ -9,13 +9,12 @@ class ProfileWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nome = profile.nome;
-    final photo = profile.photo;
     final level = profile.level;
     final experience = profile.experience;
-    final experienceTotal = (profile.experience > 0) ? (profile.experience * 2) : 100; // ajuste se necessário
+    final experienceTotal = (profile.experience > 0) ? (profile.experience * 2) : 100; 
     final pontos = profile.pontos;
     final diasConsecutivos = profile.diasConsecutivos;
-    final missoesConcluidas = 0; // se disponível, adapte para vir do model
+    final missoesConcluidas = 0;
 
     final double progresso = (experienceTotal > 0)
         ? (experience / experienceTotal).clamp(0.0, 1.0)
@@ -36,14 +35,6 @@ class ProfileWindow extends StatelessWidget {
                     CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.green[100],
-                      backgroundImage:
-                          photo.isNotEmpty ? NetworkImage(photo) as ImageProvider : null,
-                      child: photo.isEmpty
-                          ? Text(
-                              nome.isNotEmpty ? nome[0].toUpperCase() : 'U',
-                              style: const TextStyle(fontSize: 28, color: Colors.white),
-                            )
-                          : null,
                     ),
                     const SizedBox(width: 16),
                     Expanded(

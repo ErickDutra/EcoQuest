@@ -1,17 +1,17 @@
 class Profile {
+  final String id;
   final String nome;
-  final int pontos;
+  final double pontos;
   final int diasConsecutivos;
-  final int experience;
+  final double experience;
   final int level;
-  final String photo;
 
  Profile({
+    required this.id,
     required this.nome,
     required this.pontos,
     required this.diasConsecutivos,
     required this.experience,
     required this.level,
-    required this.photo,
   });
 }

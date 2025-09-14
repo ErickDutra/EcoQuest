@@ -3,38 +3,17 @@ import 'package:flutter/material.dart';
 import 'missions_card.dart';
 
 class MissionsComponent extends StatefulWidget {
-  const MissionsComponent({super.key});
+  final List<Mission> missoes;
+   final String profileId;
+
+  const MissionsComponent({super.key, required this.missoes, required this.profileId});
 
   @override
   State<MissionsComponent> createState() => _MissionsComponentState();
 }
 
+
 class _MissionsComponentState extends State<MissionsComponent> {
-  // Exemplo de lista de missões
-   final List<Mission> missoes = [
-    Mission(
-      titulo: 'Recicle 5 garrafas',
-      descricao: 'Leve 5 garrafas PET ao ponto de coleta.',
-      icon: '♻️',
-      quantidadeAtual: 2,
-      quantidadeTotal: 5,
-      nivelDificuldade: 'Fácil',
-      experience: 100.00,
-      points: 10.00
-    ),
-    Mission(
-      titulo: 'Economize energia',
-      descricao: 'Desligue as luzes por 3 horas.',
-      icon: '⚡',
-      quantidadeAtual: 1,
-      quantidadeTotal: 3,
-      nivelDificuldade: 'Média',
-      experience: 100.00,
-      points: 10.00
-    ),
-  ];
-
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -54,7 +33,7 @@ class _MissionsComponentState extends State<MissionsComponent> {
                 ),
                 TextButton(
                   onPressed: () {
-                    // ação ao clicar em "Ver mais"
+                    Navigator.pushNamed(context, '/missions');
                   },
                   child: const Text('Ver todas  >',
                   style:TextStyle(color:Colors.green
@@ -64,7 +43,7 @@ class _MissionsComponentState extends State<MissionsComponent> {
               ],
             ),
             const SizedBox(height: 12),
-            ...missoes.take(2).map((missao) => MissionCard(mission: missao)),
+             ...widget.missoes.take(2).map((missao) => MissionCard(mission: missao, profileId: widget.profileId,)),
           ],
         ),
       ),
