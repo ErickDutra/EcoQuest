@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.eco.quest.api.ecoquest_api.dto.LoginDto;
+import com.eco.quest.api.ecoquest_api.dto.ProfileDto;
 import com.eco.quest.api.ecoquest_api.model.Login;
 import com.eco.quest.api.ecoquest_api.model.Profile;
 import com.eco.quest.api.ecoquest_api.repository.LoginRepository;
@@ -22,12 +23,14 @@ public class LoginService {
     }
 
     // Método de login simples
-    public Optional<Profile> login(LoginDto loginDto) {
+    public Optional<ProfileDto> login(LoginDto loginDto) {
         Optional<Login> loginOpt = loginRepository.findByEmail(loginDto.email());
         if (loginOpt.isPresent()) {
             Login login = loginOpt.get();
             if (login.getSenha().equals(loginDto.senha())) {
-                return Optional.of(login.getProfile());
+                Profile profileBase =login.getProfile();
+                ProfileDto profile = new ProfileDto(profileBase.getId(), profileBase.getNome(),profileBase.getPontos(), profileBase.getDiasConsecutivos(),profileBase.getExperience(), profileBase.getLevel(), profileBase.getPhoto());
+                return Optional.of(profile);
             }
         }
         return Optional.empty();

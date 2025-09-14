@@ -1,5 +1,6 @@
 package com.eco.quest.api.ecoquest_api.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Login {
     @JoinColumn(name = "profile_id")
     private Profile profile;
     private String senha ;
+    @Column(unique = true)
     private String email;
 
     

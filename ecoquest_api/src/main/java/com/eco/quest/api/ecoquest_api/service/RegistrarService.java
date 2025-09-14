@@ -23,18 +23,29 @@ public class RegistrarService {
     }
 
     public Optional<Profile> registrarUsuario(RegistrarDTO dto) {
-        Profile profile = new Profile();
-        Login login = new Login();
-        profile.setNome(dto.nome());
-        profile.setPontos(BigDecimal.ZERO);
-        profile.setExperience(BigDecimal.ZERO);
-        profile.setLevel(0L);
-        profile.setDiasConsecutivos(0L);
-        login.setEmail(dto.email());
-        login.setProfile(profile);
-        login.setSenha(dto.senha());
-        loginRepository.save(login);
+       
+        if (loginRepository.findByEmail(dto.email()).isPresent()) {
+            return Optional.empty(); 
+        }
+
+        
+        Profile profile = Profile.builder()
+            .nome(dto.nome())
+            .pontos(BigDecimal.ZERO)
+            .experience(BigDecimal.ZERO)
+            .level(1L)
+            .diasConsecutivos(0L)
+            .build();
         Profile savedProfile = profileRepository.save(profile);
+
+       
+        Login login = Login.builder()
+            .email(dto.email())
+            .senha(dto.senha()) 
+            .profile(savedProfile)
+            .build();
+        loginRepository.save(login);
+
         return Optional.of(savedProfile);
     }
 }

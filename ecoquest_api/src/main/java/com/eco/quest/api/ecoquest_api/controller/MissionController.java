@@ -55,4 +55,10 @@ public class MissionController {
         missionService.deleteMission(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/available/{profileId}")
+    public ResponseEntity<List<MissionDto>> getAvailableMissions(@PathVariable String profileId) {
+        List<MissionDto> availableMissions = missionService.getAvailableMissions(profileId);
+        return ResponseEntity.ok(availableMissions);
+    }
 }

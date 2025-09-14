@@ -1,5 +1,7 @@
 package com.eco.quest.api.ecoquest_api.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.eco.quest.api.ecoquest_api.model.Mission;
@@ -8,4 +10,5 @@ import com.eco.quest.api.ecoquest_api.model.Profile;
 
 public interface MissoesConcluidasRepository extends JpaRepository<MissoesConcluidas, String> {
     boolean existsByMissionAndProfile( Mission mission,Profile profile);
+    List<MissoesConcluidas> findByProfile_Id(String profileId);
 }

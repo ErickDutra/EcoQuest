@@ -1,6 +1,7 @@
 package com.eco.quest.api.ecoquest_api.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -58,6 +59,11 @@ MissoesConcluidasRepository missoesConcluidasRepository
             return Optional.of("Missão concluída com sucesso!"); 
         }
         return Optional.of("Perfil ou missão não encontrados."); 
+    }
+
+
+     public List<MissoesConcluidas> getMissoesByidProfile(String profileId) {
+        return missoesConcluidasRepository.findByProfile_Id(profileId);
     }
 
     

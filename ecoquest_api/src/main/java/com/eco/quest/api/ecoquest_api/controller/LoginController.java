@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eco.quest.api.ecoquest_api.dto.LoginDto;
+import com.eco.quest.api.ecoquest_api.dto.ProfileDto;
 import com.eco.quest.api.ecoquest_api.model.Profile;
 import com.eco.quest.api.ecoquest_api.service.LoginService;
 
@@ -25,8 +26,8 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<Profile> login(@RequestBody LoginDto loginDto) {
-        Optional<Profile> profile = loginService.login(loginDto);
+    public ResponseEntity<ProfileDto> login(@RequestBody LoginDto loginDto) {
+        Optional<ProfileDto> profile = loginService.login(loginDto);
         return profile.map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 
