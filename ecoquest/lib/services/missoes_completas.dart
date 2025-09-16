@@ -12,14 +12,43 @@ Future<List<Mission>> getCompletedMissions(String profileId) async {
     return data.map((json) => Mission.fromJson(json)).toList();
   }
 
-  final response = await http.get(Uri.parse('http://10.0.2.2:8081/missao-concluida/$profileId'));
+  final response = await http.get(
+    Uri.parse('http://10.0.2.2:8081/missions/completed/$profileId'),
+  );
 
   if (response.statusCode == 200) {
     List<dynamic> data = jsonDecode(response.body);
-    List<Mission> missions = data.map((json) => Mission.fromJson(json)).toList();
+    List<Mission> missions = data
+        .map((json) => Mission.fromJson(json))
+        .toList();
     prefs.setString('completed_missions_$profileId', jsonEncode(data));
     return missions;
   } else {
-    throw Exception('Falha ao carregar missões completadas: ${response.statusCode}');
+    throw Exception('Falha ao carregar missões');
+  }
+}
+
+Future<List<Mission>> getAvailableMissions(String profileId) async {
+  final prefs = await SharedPreferences.getInstance();
+  final cachedData = prefs.getString('available_missions_$profileId');
+
+  if (cachedData != null) {
+    List<dynamic> data = jsonDecode(cachedData);
+    return data.map((json) => Mission.fromJson(json)).toList();
+  }
+
+  final response = await http.get(
+    Uri.parse('http://10.0.2.2:8081/missions/available/$profileId'),
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> data = jsonDecode(response.body);
+    List<Mission> missions = data
+        .map((json) => Mission.fromJson(json))
+        .toList();
+    prefs.setString('available_missions_$profileId', jsonEncode(data));
+    return missions;
+  } else {
+    throw Exception('Falha ao carregar missões');
   }
 }

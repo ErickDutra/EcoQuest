@@ -1,3 +1,4 @@
+import 'package:ecoquest/services/registrar_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterWindow extends StatefulWidget {
@@ -70,13 +71,17 @@ class _RegisterWindowState extends State<RegisterWindow> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Lógica de registro aqui
+                  try {
+                      await registrar(_nameController.text, _passwordController.text, _emailController.text);
+                    } catch (e) {
+                      print(e);
+                    }
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Registro realizado!')),
                     );
-                    // Navegar para login ou home
+            
                     Navigator.pop(context);
                   }
                 },
@@ -85,7 +90,7 @@ class _RegisterWindowState extends State<RegisterWindow> {
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context); // Voltar para login
+                  Navigator.pop(context);
                 },
                 child: const Text('Já tem conta? Faça login'),
               ),

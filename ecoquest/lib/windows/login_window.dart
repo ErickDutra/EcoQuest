@@ -1,5 +1,6 @@
-import 'package:ecoquest/services/getMissions.dart';
+
 import 'package:ecoquest/services/login_service.dart';
+import 'package:ecoquest/services/missoes_completas.dart';
 import 'package:flutter/material.dart';
 
 class LoginWindow extends StatefulWidget {
@@ -28,6 +29,9 @@ class _LoginWindowState extends State<LoginWindow> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Center(
+                      child: Image.asset('assets/images/eco.png'),
+                    ),
                     TextFormField(
                       controller: _emailController,
                       decoration: const InputDecoration(
@@ -66,7 +70,7 @@ class _LoginWindowState extends State<LoginWindow> {
                               _emailController.text,
                               _passwordController.text,
                             );
-                            final missoes = await getMissions(profile.id);
+                            final missoes = await getAvailableMissions(profile.id);
                             if (mounted) {
                               Navigator.pushReplacementNamed(
                                 context,

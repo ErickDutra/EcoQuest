@@ -90,7 +90,6 @@ class ProfileWindow extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Grid de estatísticas
             Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
@@ -127,7 +126,6 @@ class ProfileWindow extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Grid de conquistas (placeholder)
             Card(
               shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -167,7 +165,6 @@ class ProfileWindow extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Card de configurações + botão sair
             Card(
               shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

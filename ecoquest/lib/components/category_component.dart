@@ -54,10 +54,10 @@ final List<Category> categorias = [
               physics: NeverScrollableScrollPhysics(),
               itemCount: categorias.length,
              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  crossAxisCount: 3, // 3 colunas
+  crossAxisCount: 3, 
   mainAxisSpacing: 12,
   crossAxisSpacing: 12,
-  childAspectRatio: 1.1, // ajuste conforme o visual desejado
+  childAspectRatio: 1.1,
 ),
               itemBuilder: (context, index) {
                 final cat = categorias[index];

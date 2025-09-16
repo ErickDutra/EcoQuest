@@ -5,6 +5,7 @@ import 'package:ecoquest/windows/home_window.dart';
 import 'package:ecoquest/windows/mission_window.dart';
 import 'package:ecoquest/windows/profile_window.dart';
 import 'package:ecoquest/windows/login_window.dart';
+import 'package:ecoquest/windows/register_window.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
           final perfil = args['perfil'] as Profile;
           return ProfileWindow(profile: perfil);
         },
+        '/register': (context) {
+          return RegisterWindow();
+        },
       },
     );
   }
@@ -63,6 +67,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
+  late Profile _currentProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentProfile = widget.perfil;
+  }
+
+  void _updateProfile(Profile newProfile) {
+    setState(() {
+      _currentProfile = newProfile;
+    });
+  }
 
   void _onTabTapped(int index) {
     setState(() {
@@ -76,20 +93,22 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            TitleCustom(profile: widget.perfil),
+            TitleCustom(profile: _currentProfile),
             Expanded(
               child: IndexedStack(
                 index: _currentIndex,
                 children: [
                   HomeWindow(
                     missoes: widget.missoes,
-                    profileId: widget.perfil.id,
+                    profileId: _currentProfile.id,
+                    onProfileUpdated: _updateProfile,
                   ),
                   MissionWindow(
                     missoes: widget.missoes,
-                    profileId: widget.perfil.id,
+                    profileId: _currentProfile.id,
+                    onProfileUpdated: _updateProfile,
                   ),
-                  ProfileWindow(profile: widget.perfil),
+                  ProfileWindow(profile: _currentProfile),
                 ],
               ),
             ),
