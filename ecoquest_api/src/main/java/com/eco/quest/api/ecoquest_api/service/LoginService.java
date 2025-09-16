@@ -22,7 +22,7 @@ public class LoginService {
         this.profileRepository = profileRepository;
     }
 
-    // Método de login simples
+
     public Optional<ProfileDto> login(LoginDto loginDto) {
         Optional<Login> loginOpt = loginRepository.findByEmail(loginDto.email());
         if (loginOpt.isPresent()) {
@@ -36,7 +36,6 @@ public class LoginService {
         return Optional.empty();
     }
 
-    // Método para editar senha
     public boolean editarSenha(String profileId, String novaSenha) {
         Optional<Profile> profileOpt = profileRepository.findById(profileId);
         if (profileOpt.isPresent()) {

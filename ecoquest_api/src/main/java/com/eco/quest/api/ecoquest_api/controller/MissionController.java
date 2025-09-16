@@ -22,6 +22,7 @@ public class MissionController {
 
     private final MissionService missionService;
 
+
     public MissionController(MissionService missionService) {
         this.missionService = missionService;
     }
@@ -60,5 +61,11 @@ public class MissionController {
     public ResponseEntity<List<MissionDto>> getAvailableMissions(@PathVariable String profileId) {
         List<MissionDto> availableMissions = missionService.getAvailableMissions(profileId);
         return ResponseEntity.ok(availableMissions);
+    }
+
+      @GetMapping("/completed/{profileId}")
+    public ResponseEntity<List<MissionDto>> getCompletedMissions(@PathVariable String profileId) {
+        List<MissionDto> completedMissions = missionService.getCompletedMissions(profileId);
+        return ResponseEntity.ok(completedMissions);
     }
 }

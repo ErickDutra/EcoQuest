@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eco.quest.api.ecoquest_api.dto.LoginDto;
 import com.eco.quest.api.ecoquest_api.dto.ProfileDto;
-import com.eco.quest.api.ecoquest_api.model.Profile;
 import com.eco.quest.api.ecoquest_api.service.LoginService;
 
 @RestController

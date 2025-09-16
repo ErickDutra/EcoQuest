@@ -43,6 +43,18 @@ public class MissionService {
                 .collect(Collectors.toList());
     }
 
+    public List<MissionDto> getCompletedMissions(String profileId) {
+    List<String> completedMissionIds = missoesConcluidasRepository.findByProfile_Id(profileId)
+            .stream()
+            .map(missaoConcluida -> missaoConcluida.getMission().getId())
+            .collect(Collectors.toList());
+    
+    return missionRepository.findAllById(completedMissionIds)
+            .stream()
+            .map(this::toDto)
+            .collect(Collectors.toList());
+}
+
   
     
     public MissionDto createMission(MissionDto dto) {

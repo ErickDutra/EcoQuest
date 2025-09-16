@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.eco.quest.api.ecoquest_api.dto.CompletarMissaoDTO;
+import com.eco.quest.api.ecoquest_api.dto.ProfileDto;
 import com.eco.quest.api.ecoquest_api.model.Mission;
 import com.eco.quest.api.ecoquest_api.model.MissoesConcluidas;
 import com.eco.quest.api.ecoquest_api.model.Profile;
@@ -33,7 +34,7 @@ MissoesConcluidasRepository missoesConcluidasRepository
     }
 
 
-    public  Optional<String> completarMissao(CompletarMissaoDTO dto) {
+     public Optional<ProfileDto> completarMissao(CompletarMissaoDTO dto) {
         Optional<Profile> profileOpt = profileRepository.findById(dto.profileId());
         Optional<Mission> missionOpt = missionRepository.findById(dto.missionId());
 
@@ -43,7 +44,7 @@ MissoesConcluidasRepository missoesConcluidasRepository
 
             boolean jaConcluida = missoesConcluidasRepository.existsByMissionAndProfile(mission, profile);
             if (jaConcluida) {
-                return Optional.of("Missão já foi concluída anteriormente."); 
+                return Optional.empty(); 
             }
 
             MissoesConcluidas conclusao = new MissoesConcluidas();
@@ -54,11 +55,19 @@ MissoesConcluidasRepository missoesConcluidasRepository
 
             profile.setPontos(profile.getPontos().add(mission.getPoints()));
             profile.setExperience(profile.getExperience().add(mission.getExperience()));
-            profileRepository.save(profile);
+            Profile updatedProfile = profileRepository.save(profile);
 
-            return Optional.of("Missão concluída com sucesso!"); 
+            return Optional.of(new ProfileDto(
+                updatedProfile.getId(),
+                updatedProfile.getNome(),
+                updatedProfile.getPontos(),
+                updatedProfile.getDiasConsecutivos(),
+                updatedProfile.getExperience(),
+                updatedProfile.getLevel(),
+                updatedProfile.getPhoto()
+            ));
         }
-        return Optional.of("Perfil ou missão não encontrados."); 
+        return Optional.empty(); 
     }
 
 

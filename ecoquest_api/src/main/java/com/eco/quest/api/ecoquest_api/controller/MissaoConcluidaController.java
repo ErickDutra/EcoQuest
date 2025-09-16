@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eco.quest.api.ecoquest_api.dto.CompletarMissaoDTO;
+import com.eco.quest.api.ecoquest_api.dto.ProfileDto;
 import com.eco.quest.api.ecoquest_api.model.MissoesConcluidas;
 import com.eco.quest.api.ecoquest_api.service.MissaoConcluidaService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,12 @@ public class MissaoConcluidaController {
         this.missaoConcluidaService = missaoConcluidaService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> completarMissao(@RequestBody CompletarMissaoDTO dto) {
-        Optional<String> resultado = missaoConcluidaService.completarMissao(dto);
-        return resultado.map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().body("Erro ao completar missão"));
+     @PostMapping
+    public ResponseEntity<ProfileDto> completarMissao(@RequestBody CompletarMissaoDTO dto) {
+        Optional<ProfileDto> resultado = missaoConcluidaService.completarMissao(dto);
+        return resultado.map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
+
 
      @GetMapping("/{profileId}")
     public ResponseEntity<List<MissoesConcluidas>> getMissoesConcluidas(@PathVariable String profileId) {
